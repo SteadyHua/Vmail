@@ -52,6 +52,7 @@
     },
     watch: {
       $route (newRoute) {
+        console.log(newRoute)
         const path = newRoute.path
         if (path.match('/letter/star')) {
           this.defaultActive = '2'

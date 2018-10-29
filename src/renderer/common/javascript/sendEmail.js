@@ -3,8 +3,16 @@ const nodemailer = require('nodemailer')
 
 function createTransporter (user) {
   const type = user.email.match(mailReg)[1]
+  console.log('createTransport type', type)
+  let params = {service: type}
+  if (type === 'sishuxuefu') {
+    params = {
+      host: 'smtp.sishuxuefu.com',
+      secureConnection: false // 是否使用SSL  使用SSL 需要设置port
+    }
+  }
   return nodemailer.createTransport({
-    service: type,
+    ...params,
     auth: {
       user: user.email,
       pass: user.password

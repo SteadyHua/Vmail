@@ -60,7 +60,7 @@
   },
   "dependencies": {
     "electron-updater": "^2.21.10",
-    "element-ui": "^2.2.0",
+    "element-ui": "2.3.3",
     "iconv-lite": "^0.4.19",
     "imap": "^0.8.19",
     "lowdb": "^1.0.0",

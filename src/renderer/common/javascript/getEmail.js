@@ -8,13 +8,15 @@ const Imap = require('imap')
 const iconv = require('iconv-lite')
 
 export function _getEmailList (user, _box = 'inbox', start) {
+  const type = user.email.match(mailReg)[1]
   let box
   switch (_box) {
     case 'inbox':
       box = 'INBOX'
       break
     case 'sent':
-      box = 'Sent Messages'
+      // box = 'Sent Messages'
+      box = type === 'sishuxuefu' ? 'Sent' : 'Sent Messages'
       break
     case 'draft':
       box = 'Drafts'
@@ -23,13 +25,12 @@ export function _getEmailList (user, _box = 'inbox', start) {
       box = _box
   }
   return new Promise((resolve, reject) => {
-    const type = user.email.match(mailReg)[1]
     const imap = new Imap({
       user: user.email,
       password: user.password,
       host: `imap.${type}.com`,
-      port: 993,
-      tls: true
+      port: type === 'sishuxuefu' ? 143 : 993,
+      tls: type !== 'sishuxuefu'
     })
     function openInbox (cb) {
       imap.openBox(box, true, cb)
@@ -105,6 +106,7 @@ export function _getEmailList (user, _box = 'inbox', start) {
 
 export function _getEmailDetail (user, id, _box) {
   let box
+  const type = user.email.match(mailReg)[1]
   switch (_box) {
     case 'inbox':
       box = 'INBOX'
@@ -119,13 +121,12 @@ export function _getEmailDetail (user, id, _box) {
       box = _box
   }
   return new Promise((resolve, reject) => {
-    const type = user.email.match(mailReg)[1]
     const imap = new Imap({
       user: user.email,
       password: user.password,
       host: `imap.${type}.com`,
-      port: 993,
-      tls: true
+      port: type === 'sishuxuefu' ? 143 : 993,
+      tls: type !== 'sishuxuefu'
     })
     function openInbox (cb) {
       imap.openBox(box, false, cb)
@@ -189,14 +190,15 @@ export function _getEmailDetail (user, id, _box) {
 }
 
 export function _testAccount (user) {
+  const type = user.email.match(mailReg)[1]
   return new Promise((resolve, reject) => {
-    const type = user.email.match(mailReg)[1]
     const imap = new Imap({
       user: user.email,
       password: user.password,
       host: `imap.${type}.com`,
-      port: 993,
-      tls: true
+      port: type === 'sishuxuefu' ? 143 : 993,
+      // port: 143
+      tls: type !== 'sishuxuefu'
     })
     function openInbox (cb) {
       imap.openBox('INBOX', false, cb)

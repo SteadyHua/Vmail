@@ -58,6 +58,7 @@ export function matchBody (emailText, emailHeader) {
           return
         }
         const contentType = text.match(contentTypeReg)[1].trim()
+        console.log('text :', text)
         const charset = (text.match(secondChartsetReg) || text.match(charsetReg))[1].trim().replace(/"/g, '')
         const transferEncoding = text.match(contentTransferEncodingReg)[1].trim()
         const subTextArr = text.split(blankLineReg)

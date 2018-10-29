@@ -8,7 +8,7 @@ export const PATH = {
   config
 }
 
-export const supportEamil = ['qq', '163', 'aliyun']
+export const supportEamil = ['qq', '163', 'aliyun', 'sishuxuefu']
 
 export function getPersonalPath (email) {
   return getEmailDetailPath(email, 'index')

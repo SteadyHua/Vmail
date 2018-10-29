@@ -15,6 +15,7 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {
+      name: 'letter',
       path: '/',
       redirect: '/letter'
       // component: letter
@@ -25,22 +26,27 @@ export default new Router({
       component: letter,
       children: [
         {
+          name: 'inbox',
           path: 'inbox',
           component: inboxMail
         },
         {
+          name: 'star',
           path: 'star',
           component: starMail
         },
         {
+          name: 'drafts',
           path: 'drafts',
           component: draftsMail
         },
         {
+          name: 'sent',
           path: 'sent',
           component: sentMail
         },
         {
+          name: 'write',
           path: 'write',
           redirect: '/write'
         }
